@@ -1,0 +1,40 @@
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Менеджер задач</title>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    {% include 'nav.html' %}
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <main role="main" class="inner cover flex-grow-1">
+
+            {% bootstrap_messages %}
+
+            <div class="container wrapper">
+                <h1 class="cover-heading">
+                    {% block header %}{% endblock %}
+                </h1>
+
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <footer class="mt-auto">
+      <div class="container my-5 pt-4 border-top">
+        <a href="https://github.com/pestrukha" target="_blank">pestrukha</a>
+      </div>
+    </footer>
+
+</body>
+</html>
