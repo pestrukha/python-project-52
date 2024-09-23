@@ -10,7 +10,7 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link">
+                    <a class="nav-link" href="{% url 'statuses_list' %}">
                         Статусы
                     </a>
                 </li>

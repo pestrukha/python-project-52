@@ -3,17 +3,13 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from task_manager.users.forms import NewUserCreationForm
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
 from django.shortcuts import redirect
+from task_manager.mixins import NoLoginMixin
+
 
 User = get_user_model()
-
-
-class NoLoginMixin(LoginRequiredMixin):
-    def handle_no_permission(self):
-        messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход')
-        return redirect(reverse_lazy('login'))
 
 
 class AuthenticationMixin(NoLoginMixin, UserPassesTestMixin):
