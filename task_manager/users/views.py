@@ -12,7 +12,7 @@ User = get_user_model()
 
 class NoLoginMixin(LoginRequiredMixin):
     def handle_no_permission(self):
-        messages.error(self.request, 'Вы не залогинены')
+        messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход')
         return redirect(reverse_lazy('login'))
 
 
