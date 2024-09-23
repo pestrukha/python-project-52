@@ -3,13 +3,37 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from task_manager.users.forms import NewUserCreationForm
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
+from django.shortcuts import redirect
 
 User = get_user_model()
+
+
+class NoLoginMixin(LoginRequiredMixin):
+    def handle_no_permission(self):
+        messages.error(self.request, 'Вы не залогинены')
+        return redirect(reverse_lazy('login'))
+
+
+class AuthenticationMixin(NoLoginMixin, UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user == self.get_object()
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return super().handle_no_permission()
+        else:
+            messages.error(
+                self.request, 'У вас нет прав для изменения другого пользователя')
+            return redirect('user_list')
+
 
 class UserListView(ListView):
     model = User
     template_name = 'users/user_list.html'
     context_object_name = 'users'
+
 
 class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = 'users/user_create.html'
@@ -17,15 +41,21 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('login')
     success_message = 'Пользователь успешно зарегистрирован'
 
-class UserUpdateView(SuccessMessageMixin,
+
+class UserUpdateView(AuthenticationMixin,
+                     SuccessMessageMixin,
                      UpdateView):
-    model = get_user_model()
+    model = User
     form_class = NewUserCreationForm
     template_name = 'users/user_update.html'
     success_url = reverse_lazy('user_list')
     success_message = 'Информация о пользователе изменена'
 
-class UserDeleteView(DeleteView):
+
+class UserDeleteView(AuthenticationMixin,
+                     SuccessMessageMixin,
+                     DeleteView):
     model = User
     template_name = 'users/user_delete.html'
     success_url = reverse_lazy('user_list')
+    success_message = 'Пользователь удалён'
