@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <h2 class="my-4">Задачи</h2>
+    <a class="btn btn-primary btn-sm" role="button">Создать задачу</a>
+    <br>
+    <br>
+        <div class="card mb-3">
+            <div class="card-body bg-light">
+                <form class="form-inline center" method="get">
+                  {% bootstrap_form filter.form field_class="ml-2 mr-3" %}
+                    <button class="btn btn-primary btn-sm" type="submit">Показать</button>
+                </form>
+            </div>
+        </div>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th style="width:10%">ID</th>
+                <th style="width:15%">Имя</th>
+                <th style="width:15%">Статус</th>
+                <th style="width:15%">Автор</th>
+                <th style="width:15%">Исполнитель</th>
+                <th style="width:15%">Дата создания</th>
+                <th style="width:15%"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% if tasks %}
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.id }}</td>
+                        <td><a>{{ task.name }}</a></td>
+                        <td>{{ task.status }}</td>
+                        <td>{{ task.author }}</td>
+                        <td>{{ task.executor }}</td>
+                        <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" role="button">Изменить</a>
+                            <a class="btn btn-danger btn-sm" role="button">Удалить</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
