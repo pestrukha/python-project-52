@@ -14,13 +14,13 @@ class Task(models.Model):
         max_length=300, verbose_name='Description'
     )
     status = models.ForeignKey(
-        Status, on_delete=models.PROTECT, related_name='status', verbose_name='Status'
+        Status, on_delete=models.PROTECT, related_name='status', verbose_name='Статус'
     )
     author = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name='author', verbose_name='Author'
+        User, on_delete=models.PROTECT, related_name='author', verbose_name='Только свои задачи'
     )
     executor = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name='executor', verbose_name='Executor'
+        User, on_delete=models.PROTECT, related_name='executor', verbose_name='Исполнитель'
     )
 
     created_at = models.DateTimeField(
