@@ -5,7 +5,7 @@ from django_filters.views import FilterView
 from task_manager.tasks.models import Task
 from task_manager.tasks.filters import TaskFilter
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 from task_manager.tasks.forms import TaskForm
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class TaskCreateView(NoLoginMixin, SuccessMessageMixin, CreateView):
+class TaskCreateView(NoLoginMixin, CreateView, SuccessMessageMixin):
     template_name = 'tasks/task_create.html'
     model = Task
     form_class = TaskForm
@@ -38,3 +38,11 @@ class TaskView(NoLoginMixin, DetailView):
     template_name = 'tasks/one_task.html'
     model = Task
     context_object_name = 'task'
+
+
+class TaskUpdateView(NoLoginMixin, UpdateView, SuccessMessageMixin):
+    template_name = 'tasks/task_update.html'
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy('task_list')
+    success_message = 'Задача успешно изменена'

@@ -38,7 +38,7 @@
                         <td>{{ task.executor }}</td>
                         <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
                         <td>
-                            <a>Изменить</a>
+                            <a href="{% url 'task_update' pk=task.pk %}">Изменить</a>
                             <br>
                             <a>Удалить</a>
                         </td>
