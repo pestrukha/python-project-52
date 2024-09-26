@@ -26,7 +26,7 @@ class StatusCreateView(NoLoginMixin,
     form_class = StatusForm
     template_name = 'statuses/status_create.html'
     success_message = 'Статус успешно создан'
-    success_url = reverse_lazy('statuses_list')
+    success_url = reverse_lazy('status_list')
     extra_context = {
         'title': 'Создать статус',
         'button_text': 'Создать',
@@ -40,7 +40,7 @@ class StatusUpdateView(NoLoginMixin,
     form_class = StatusForm
     template_name = 'statuses/status_update.html'
     success_message = 'Статус успешно изменён'
-    success_url = reverse_lazy('statuses_list')
+    success_url = reverse_lazy('status_list')
     extra_context = {
         'title': 'Изменить статус',
         'button_text': 'Изменить',
@@ -53,9 +53,9 @@ class StatusDeleteView(NoLoginMixin,
     model = Status
     template_name = 'statuses/status_delete.html'
     success_message = 'Статус успешно удалён'
-    success_url = reverse_lazy('statuses_list')
+    success_url = reverse_lazy('status_list')
     protected_message = 'Невозможно удалить статус, потому что он используется'
-    protected_url = reverse_lazy('statuses_list')
+    protected_url = reverse_lazy('status_list')
     extra_context = {
         'title': 'Удалить статус',
         'button_text': 'Удалить',

@@ -3,7 +3,7 @@
 
 {% block content %}
     <h1 class="my-4">Задачи</h1>
-    <a class="btn btn-primary" role="button">Создать задачу</a>
+    <a class="btn btn-primary" role="button" href="{% url 'task_create' %}">Создать задачу</a>
     <br>
     <br>
         <div class="card mb-3">
@@ -38,8 +38,9 @@
                         <td>{{ task.executor }}</td>
                         <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
                         <td>
-                            <a class="btn btn-primary btn-sm" role="button">Изменить</a>
-                            <a class="btn btn-danger btn-sm" role="button">Удалить</a>
+                            <a>Изменить</a>
+                            <br>
+                            <a>Удалить</a>
                         </td>
                     </tr>
                 {% endfor %}

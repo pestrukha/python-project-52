@@ -8,10 +8,10 @@ User = get_user_model()
 
 class Task(models.Model):
     name = models.CharField(
-        max_length=150, verbose_name='Name', unique=True
+        max_length=150, verbose_name='Имя', unique=True
     )
     description = models.TextField(
-        max_length=300, verbose_name='Description'
+        max_length=300, verbose_name='Описание'
     )
     status = models.ForeignKey(
         Status, on_delete=models.PROTECT, related_name='status', verbose_name='Статус'
