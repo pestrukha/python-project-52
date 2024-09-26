@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class TaskCreateView(NoLoginMixin, CreateView, SuccessMessageMixin):
+class TaskCreateView(NoLoginMixin, SuccessMessageMixin, CreateView):
     template_name = 'tasks/task_create.html'
     model = Task
     form_class = TaskForm
@@ -40,7 +40,7 @@ class TaskView(NoLoginMixin, DetailView):
     context_object_name = 'task'
 
 
-class TaskUpdateView(NoLoginMixin, UpdateView, SuccessMessageMixin):
+class TaskUpdateView(NoLoginMixin, SuccessMessageMixin, UpdateView):
     template_name = 'tasks/task_update.html'
     model = Task
     form_class = TaskForm
