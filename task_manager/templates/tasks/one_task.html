@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<h1 class="my-4">Просмотр задачи</h1>
+
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h3>{{ task.name }}</h3>
+        </div>
+        <div class="card-body bg-light">
+            <p>{{ task.description }}</p>
+            <hr>
+            <div class="container">
+                <div class="row p-1">
+                    <div class="col">Автор</div>
+                    <div class="col">{{ task.author }}</div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">Исполнитель</div>
+                    <div class="col">{{ task.executor }}</div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">Статус</div>
+                    <div class="col">{{ task.status }}</div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">Дата создания</div>
+                    <div class="col">{{ task.created_at|date:"d.m.Y H:i" }}</div>
+                </div>
+                <div class="row p-1">
+                    <div class="col">
+                        <a>Изменить</a>
+                        <br>
+                        <a>Удалить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

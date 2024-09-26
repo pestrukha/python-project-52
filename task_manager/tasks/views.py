@@ -5,20 +5,13 @@ from django_filters.views import FilterView
 from task_manager.tasks.models import Task
 from task_manager.tasks.filters import TaskFilter
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from task_manager.tasks.forms import TaskForm
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 
 
 User = get_user_model()
-
-
-class TasksListView(NoLoginMixin, FilterView):
-    template_name = 'tasks/task_list.html'
-    model = Task
-    filterset_class = TaskFilter
-    context_object_name = 'tasks'
 
 
 class TaskCreateView(NoLoginMixin, SuccessMessageMixin, CreateView):
@@ -32,3 +25,16 @@ class TaskCreateView(NoLoginMixin, SuccessMessageMixin, CreateView):
         user = self.request.user
         form.instance.author = User.objects.get(pk=user.pk)
         return super().form_valid(form)
+
+
+class TasksListView(NoLoginMixin, FilterView):
+    template_name = 'tasks/task_list.html'
+    model = Task
+    filterset_class = TaskFilter
+    context_object_name = 'tasks'
+
+
+class TaskView(NoLoginMixin, DetailView):
+    template_name = 'tasks/one_task.html'
+    model = Task
+    context_object_name = 'task'
