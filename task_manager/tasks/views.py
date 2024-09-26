@@ -5,10 +5,11 @@ from django_filters.views import FilterView
 from task_manager.tasks.models import Task
 from task_manager.tasks.filters import TaskFilter
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from task_manager.tasks.forms import TaskForm
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
+from task_manager.mixins import AuthorMixin
 
 
 User = get_user_model()
@@ -46,3 +47,13 @@ class TaskUpdateView(NoLoginMixin, SuccessMessageMixin, UpdateView):
     form_class = TaskForm
     success_url = reverse_lazy('task_list')
     success_message = 'Задача успешно изменена'
+
+
+class TaskDeleteView(NoLoginMixin, AuthorMixin,
+                     SuccessMessageMixin, DeleteView):
+    template_name = 'tasks/task_delete.html'
+    model = Task
+    success_url = reverse_lazy('task_list')
+    success_message = 'Задача успешно удалена'
+    author_permission_message = 'Задачу может удалить только её автор'
+    author_permission_url = reverse_lazy('task_list')
