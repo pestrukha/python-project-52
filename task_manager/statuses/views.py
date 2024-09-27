@@ -1,5 +1,5 @@
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from task_manager.mixins import NoLoginMixin
+from task_manager.mixins import AuthRequiredMixin
 from task_manager.statuses.models import Status
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -9,14 +9,14 @@ from django.contrib import messages
 from django.shortcuts import redirect
 
 
-class StatusesListView(NoLoginMixin,
+class StatusesListView(AuthRequiredMixin,
                        ListView):
     model = Status
     template_name = 'statuses/status_list.html'
     context_object_name = 'statuses'
 
 
-class StatusCreateView(NoLoginMixin,
+class StatusCreateView(AuthRequiredMixin,
                        SuccessMessageMixin,
                        CreateView):
     model = Status
@@ -26,7 +26,7 @@ class StatusCreateView(NoLoginMixin,
     success_url = reverse_lazy('status_list')
 
 
-class StatusUpdateView(NoLoginMixin,
+class StatusUpdateView(AuthRequiredMixin,
                        SuccessMessageMixin,
                        UpdateView):
     model = Status
@@ -36,7 +36,7 @@ class StatusUpdateView(NoLoginMixin,
     success_url = reverse_lazy('status_list')
 
 
-class StatusDeleteView(NoLoginMixin,
+class StatusDeleteView(AuthRequiredMixin,
                        SuccessMessageMixin,
                        DeleteView):
     model = Status

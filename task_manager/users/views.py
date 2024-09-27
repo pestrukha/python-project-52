@@ -6,13 +6,13 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
 from django.shortcuts import redirect
-from task_manager.mixins import NoLoginMixin
+from task_manager.mixins import AuthRequiredMixin
 
 
 User = get_user_model()
 
 
-class AuthenticationMixin(NoLoginMixin, UserPassesTestMixin):
+class AuthenticationMixin(AuthRequiredMixin, UserPassesTestMixin):
     def test_func(self):
         return self.request.user == self.get_object()
 

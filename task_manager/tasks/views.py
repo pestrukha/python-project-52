@@ -1,4 +1,4 @@
-from task_manager.mixins import NoLoginMixin
+from task_manager.mixins import AuthRequiredMixin
 from django_filters.views import FilterView
 from task_manager.tasks.models import Task
 from task_manager.tasks.filters import TaskFilter
@@ -14,7 +14,7 @@ from django.shortcuts import redirect
 User = get_user_model()
 
 
-class TaskCreateView(NoLoginMixin, SuccessMessageMixin, CreateView):
+class TaskCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'tasks/task_create.html'
     model = Task
     form_class = TaskForm
@@ -27,20 +27,20 @@ class TaskCreateView(NoLoginMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-class TasksListView(NoLoginMixin, FilterView):
+class TasksListView(AuthRequiredMixin, FilterView):
     template_name = 'tasks/task_list.html'
     model = Task
     filterset_class = TaskFilter
     context_object_name = 'tasks'
 
 
-class TaskView(NoLoginMixin, DetailView):
+class TaskView(AuthRequiredMixin, DetailView):
     template_name = 'tasks/one_task.html'
     model = Task
     context_object_name = 'task'
 
 
-class TaskUpdateView(NoLoginMixin, SuccessMessageMixin, UpdateView):
+class TaskUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'tasks/task_update.html'
     model = Task
     form_class = TaskForm
@@ -48,7 +48,7 @@ class TaskUpdateView(NoLoginMixin, SuccessMessageMixin, UpdateView):
     success_message = 'Задача успешно изменена'
 
 
-class TaskDeleteView(NoLoginMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = 'tasks/task_delete.html'
     model = Task
     success_url = reverse_lazy('task_list')
