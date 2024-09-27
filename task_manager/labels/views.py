@@ -1,9 +1,11 @@
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from task_manager.mixins import AuthRequiredMixin
 from task_manager.labels.models import Label
 from django.contrib.messages.views import SuccessMessageMixin
 from task_manager.labels.forms import LabelForm
 from django.urls import reverse_lazy
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 class LabelListView(AuthRequiredMixin, ListView):
@@ -30,3 +32,20 @@ class LabelEditView(SuccessMessageMixin,
     template_name = 'labels/label_update.html'
     success_url = reverse_lazy('label_list')
     success_message = 'Метка успешно изменена'
+
+
+class LabelDeleteView(AuthRequiredMixin,
+                      SuccessMessageMixin,
+                      DeleteView):
+    model = Label
+    template_name = 'labels/label_delete.html'
+    success_message = 'Метка успешно удалена'
+    success_url = reverse_lazy('label_list')
+    protected_message = 'Невозможно удалить метку, потому что она используется'
+    protected_url = 'label_list'
+
+    def post(self, request, *args, **kwargs):
+        if self.get_object().tasks.exists():
+            messages.error(self.request, self.protected_message)
+            return redirect(self.protected_url)
+        return super().post(request, *args, **kwargs)
