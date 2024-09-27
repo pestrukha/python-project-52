@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from task_manager.mixins import AuthRequiredMixin
 from task_manager.labels.models import Label
 from django.contrib.messages.views import SuccessMessageMixin
@@ -20,3 +20,13 @@ class LabelCreateView(AuthRequiredMixin,
     template_name = 'labels/label_create.html'
     success_url = reverse_lazy('label_list')
     success_message = 'Метка успешно создана'
+
+
+class LabelEditView(SuccessMessageMixin,
+                    AuthRequiredMixin,
+                    UpdateView):
+    model = Label
+    form_class = LabelForm
+    template_name = 'labels/label_update.html'
+    success_url = reverse_lazy('label_list')
+    success_message = 'Метка успешно изменена'

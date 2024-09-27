@@ -22,7 +22,7 @@
             <td>{{ label.name }}</td>
             <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
             <td>
-              <a>Изменить</a>
+              <a href="{% url 'label_update' pk=label.pk %}">Изменить</a>
               <br>
               <a>Удалить</a>
             </td>
