@@ -14,9 +14,6 @@ class StatusesListView(NoLoginMixin,
     model = Status
     template_name = 'statuses/status_list.html'
     context_object_name = 'statuses'
-    extra_context = {
-        'title': 'Статусы'
-    }
 
 
 class StatusCreateView(NoLoginMixin,
@@ -27,10 +24,6 @@ class StatusCreateView(NoLoginMixin,
     template_name = 'statuses/status_create.html'
     success_message = 'Статус успешно создан'
     success_url = reverse_lazy('status_list')
-    extra_context = {
-        'title': 'Создать статус',
-        'button_text': 'Создать',
-    }
 
 
 class StatusUpdateView(NoLoginMixin,
@@ -41,10 +34,6 @@ class StatusUpdateView(NoLoginMixin,
     template_name = 'statuses/status_update.html'
     success_message = 'Статус успешно изменён'
     success_url = reverse_lazy('status_list')
-    extra_context = {
-        'title': 'Изменить статус',
-        'button_text': 'Изменить',
-    }
 
 
 class StatusDeleteView(NoLoginMixin,
@@ -56,10 +45,6 @@ class StatusDeleteView(NoLoginMixin,
     success_url = reverse_lazy('status_list')
     protected_message = 'Невозможно удалить статус, потому что он используется'
     protected_url = reverse_lazy('status_list')
-    extra_context = {
-        'title': 'Удалить статус',
-        'button_text': 'Удалить',
-    }
 
     def post(self, request, *args, **kwargs):
         try:

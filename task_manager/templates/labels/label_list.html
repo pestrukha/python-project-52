@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container wrapper flex-grow-1">
     <h1 class="my-4">Метки</h1>
-    <a class="btn btn-primary mb-3">Создать метку</a>
+    <a class="btn btn-primary mb-3" href="{% url 'label_create' %}">Создать метку</a>
     <table class="table table-striped">
         <thead>
           <tr>
@@ -20,7 +20,7 @@
           <tr>
             <td>{{ label.id }}</td>
             <td>{{ label.name }}</td>
-            <td>{{ label.creation_date|date:"d.m.Y H:i" }}</td>
+            <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
             <td>
               <a>Изменить</a>
               <br>
