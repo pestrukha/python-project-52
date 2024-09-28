@@ -6,6 +6,7 @@ from task_manager.labels.forms import LabelForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.db.models import ProtectedError
 
 
 class LabelListView(AuthRequiredMixin, ListView):
@@ -45,7 +46,8 @@ class LabelDeleteView(AuthRequiredMixin,
     protected_url = 'label_list'
 
     def post(self, request, *args, **kwargs):
-        if self.get_object().tasks.exists():
-            messages.error(self.request, self.protected_message)
+        try:
+            return super().post(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(request, self.protected_message)
             return redirect(self.protected_url)
-        return super().post(request, *args, **kwargs)
