@@ -13,12 +13,12 @@ class IndexTemplateView(TemplateView):
 class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'users/user_login.html'
     next_page = reverse_lazy('index')
-    success_message = 'Вы залогинились'
+    success_message = 'Вы залогинены'
 
 
 class UserLogoutView(SuccessMessageMixin, LogoutView):
     next_page = reverse_lazy('index')
 
     def dispatch(self, request, *args, **kwargs):
-        messages.info(request, 'Вы разлогинились')
+        messages.info(request, 'Вы разлогинены')
         return super().dispatch(request, *args, **kwargs)
