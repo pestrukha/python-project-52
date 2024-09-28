@@ -1,5 +1,6 @@
 from django.db import models
 from task_manager.statuses.models import Status
+from task_manager.labels.models import Label
 from django.contrib.auth import get_user_model
 
 
@@ -22,7 +23,10 @@ class Task(models.Model):
     executor = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name='executor', verbose_name='Исполнитель'
     )
-
+    labels = models.ManyToManyField(
+        Label, through='TaskLabelDependence', through_fields=('task', 'label'), blank=True,
+        related_name='labels', verbose_name='Метки'
+    )
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name='Creation date'
     )
@@ -34,3 +38,8 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class TaskLabelDependence(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    label = models.ForeignKey(Label, on_delete=models.PROTECT)
