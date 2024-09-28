@@ -21,7 +21,7 @@ class AuthenticationMixin(AuthRequiredMixin, UserPassesTestMixin):
             return super().handle_no_permission()
         else:
             messages.error(
-                self.request, 'У вас нет прав для изменения другого пользователя')
+                self.request, 'У вас нет прав для изменения другого пользователя.')
             return redirect('user_list')
 
 
@@ -45,7 +45,7 @@ class UserUpdateView(AuthenticationMixin,
     form_class = NewUserCreationForm
     template_name = 'users/user_update.html'
     success_url = reverse_lazy('user_list')
-    success_message = 'Информация о пользователе изменена'
+    success_message = 'Пользователь успешно изменен'
 
 
 class UserDeleteView(AuthenticationMixin,
@@ -54,4 +54,4 @@ class UserDeleteView(AuthenticationMixin,
     model = User
     template_name = 'users/user_delete.html'
     success_url = reverse_lazy('user_list')
-    success_message = 'Пользователь удалён'
+    success_message = 'Пользователь успешно удален'

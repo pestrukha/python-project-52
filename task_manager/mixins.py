@@ -6,5 +6,5 @@ from django.urls import reverse_lazy
 
 class AuthRequiredMixin(LoginRequiredMixin):
     def handle_no_permission(self):
-        messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход')
+        messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
         return redirect(reverse_lazy('login'))

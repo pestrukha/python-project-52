@@ -58,7 +58,7 @@ class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
         if self.get_object().author != self.request.user:
             messages.error(
                 self.request,
-                'Задачу может удалить только её автор')
+                'Задачу может удалить только ее автор')
             return False
         return True
 
