@@ -1,6 +1,7 @@
 from django import forms
-from django_filters import BooleanFilter, FilterSet
+from django_filters import BooleanFilter, FilterSet, ModelChoiceFilter
 from task_manager.tasks.models import Task
+from task_manager.labels.models import Label
 
 
 class TaskFilter(FilterSet):
@@ -10,9 +11,15 @@ class TaskFilter(FilterSet):
         widget=forms.CheckboxInput,
     )
 
+    label = ModelChoiceFilter(
+        queryset=Label.objects.all(),
+        field_name='labels',
+        label='Метка',
+    )
+
     class Meta:
         model = Task
-        fields = ['status', 'executor', 'labels']
+        fields = ['status', 'executor', 'label']
 
     def filtered_own_tasks(self, queryset, name, value):
         if value:
