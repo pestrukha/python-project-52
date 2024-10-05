@@ -62,7 +62,7 @@ class UserTestCase(TestCase):
         updated_user = get_user_model().objects.get(pk=2)
         self.assertEqual(updated_user.username, 'bear')
 
-    def test_user_cannot_update_other_user(self):
+    def test_update_other_user(self):
         self.client.force_login(self.user1)
 
         update_user_url = reverse('user_update', args=[self.user2.pk])
@@ -86,12 +86,12 @@ class UserTestCase(TestCase):
 
     def test_delete_user_with_tasks(self):
         self.status = Status.objects.create(
-            name="New",
+            name="Новый",
         )
 
         self.task = Task.objects.create(
-            name='Test Task',
-            description='Test Task Description',
+            name='Тест',
+            description='Описание',
             status=self.status,
             author=self.user2,
             executor=self.user1
