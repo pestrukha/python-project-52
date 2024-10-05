@@ -6,7 +6,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
 from django.shortcuts import redirect
-from task_manager.mixins import AuthRequiredMixin
+from task_manager.mixins import AuthRequiredMixin, DeleteProtectionMixin
 
 
 User = get_user_model()
@@ -50,8 +50,11 @@ class UserUpdateView(AuthenticationMixin,
 
 class UserDeleteView(AuthenticationMixin,
                      SuccessMessageMixin,
+                     DeleteProtectionMixin,
                      DeleteView):
     model = User
     template_name = 'users/user_delete.html'
     success_url = reverse_lazy('user_list')
     success_message = 'Пользователь успешно удален'
+    rejection_message = 'Невозможно удалить пользователя, потому что он используется'
+    rejection_url = reverse_lazy('user_list')

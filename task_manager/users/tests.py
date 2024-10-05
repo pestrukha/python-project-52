@@ -1,6 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from task_manager.tasks.models import Task
+from task_manager.statuses.models import Status
 
 
 class UserTestCase(TestCase):
@@ -81,3 +83,28 @@ class UserTestCase(TestCase):
 
         user_still_exists = get_user_model().objects.filter(pk=self.user2.pk).exists()
         self.assertTrue(user_still_exists)
+
+    def test_user_cannot_delete_user_with_tasks(self):
+        self.status = Status.objects.create(
+            name="New",
+        )
+
+        self.task = Task.objects.create(
+            name='Test Task',
+            description='Test Task Description',
+            status=self.status,
+            author=self.user2,
+            executor=self.user1
+        )
+
+        self.client.force_login(self.user1)
+        delete_user_url = reverse('user_delete', args=[self.user2.pk])
+        response = self.client.post(delete_user_url, follow=True)
+
+        self.assertRedirects(response, reverse('user_list'))
+
+        user_still_exists = get_user_model().objects.filter(pk=self.user2.pk).exists()
+        self.assertTrue(user_still_exists)
+
+        task_still_exists = Task.objects.filter(pk=self.task.pk).exists()
+        self.assertTrue(task_still_exists)
