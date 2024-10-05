@@ -73,7 +73,7 @@ class UserTestCase(TestCase):
         updated_user2 = get_user_model().objects.get(pk=self.user2.pk)
         self.assertNotEqual(updated_user2.username, self.form_data['username'])
 
-    def test_user_cannot_delete_other_user(self):
+    def test_delete_other_user(self):
         self.client.force_login(self.user1)
 
         delete_user_url = reverse('user_delete', args=[self.user2.pk])
@@ -84,7 +84,7 @@ class UserTestCase(TestCase):
         user_still_exists = get_user_model().objects.filter(pk=self.user2.pk).exists()
         self.assertTrue(user_still_exists)
 
-    def test_user_cannot_delete_user_with_tasks(self):
+    def test_delete_user_with_tasks(self):
         self.status = Status.objects.create(
             name="New",
         )
@@ -108,3 +108,14 @@ class UserTestCase(TestCase):
 
         task_still_exists = Task.objects.filter(pk=self.task.pk).exists()
         self.assertTrue(task_still_exists)
+
+    def test_delete_user_without_tasks(self):
+        self.client.force_login(self.user1)
+        delete_user_url = reverse('user_delete', args=[self.user1.pk])
+
+        response = self.client.post(delete_user_url, follow=True)
+
+        self.assertRedirects(response, reverse('user_list'))
+
+        user_still_exists = get_user_model().objects.filter(pk=self.user1.pk).exists()
+        self.assertFalse(user_still_exists)
