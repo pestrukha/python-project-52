@@ -1,0 +1,20 @@
+[
+    {
+        "model": "labels.label",
+        "pk": 1,
+        "fields": {
+            "created_at": "2024-09-01T12:00:00.000Z",
+            "updated_at": "2024-10-01T12:00:00.000Z",
+            "name": "Дом"
+        }
+    },
+    {
+        "model": "labels.label",
+        "pk": 2,
+        "fields": {
+            "created_at": "2024-09-02T12:00:00.000Z",
+            "updated_at": "2024-10-02T12:00:00.000Z",
+            "name": "Работа"
+        }
+    }
+]
