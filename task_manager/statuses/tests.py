@@ -53,7 +53,6 @@ class StatusTestCase(TestCase):
     def test_delete_used_status(self):
         self.status = Status.objects.create(name='тестирование')
 
-        # Создаём задачу с этим статусом
         self.task = Task.objects.create(
             name='Тест',
             description='Описание',
