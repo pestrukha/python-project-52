@@ -70,3 +70,14 @@ class UserTestCase(TestCase):
 
         updated_user2 = get_user_model().objects.get(pk=self.user2.pk)
         self.assertNotEqual(updated_user2.username, self.form_data['username'])
+
+    def test_user_cannot_delete_other_user(self):
+        self.client.force_login(self.user1)
+
+        delete_user_url = reverse('user_delete', args=[self.user2.pk])
+        response = self.client.post(delete_user_url, follow=True)
+
+        self.assertRedirects(response, self.users_list_url)
+
+        user_still_exists = get_user_model().objects.filter(pk=self.user2.pk).exists()
+        self.assertTrue(user_still_exists)
