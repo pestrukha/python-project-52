@@ -15,6 +15,7 @@ class UserTestCase(TestCase):
         self.user1.save()
         self.user2.set_password('parol1357')
         self.user2.save()
+        self.client.force_login(self.user1)
         self.users_list_url = reverse('user_list')
         self.login_url = reverse('login')
         self.signup_url = reverse('user_create')
