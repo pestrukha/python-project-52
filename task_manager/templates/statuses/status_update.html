@@ -1,11 +1,12 @@
 {% extends 'layout.html' %}
+{% load i18n %}
 {% load django_bootstrap5 %}
 
 {% block content %}
-    <h2 class="my-4">Изменение статуса</h2>
+    <h2 class="my-4">{% translate 'Change status' %}</h2>
     <form method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input class="btn btn-primary" type="submit" value="Изменить">
+        <input class="btn btn-primary" type="submit" value="{% translate 'Change' %}">
     </form>
 {% endblock %}

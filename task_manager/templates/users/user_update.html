@@ -1,5 +1,6 @@
 {% extends 'forms/form.html' %}
+{% load i18n %}
 
-{% block header %}Изменение пользователя{% endblock %}
+{% block header %}{% translate 'Update user' %}{% endblock %}
 
-{% block button_value %}Изменить{% endblock %}
+{% block button_value %}{% translate 'Change' %}{% endblock %}

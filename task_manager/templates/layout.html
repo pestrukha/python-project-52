@@ -1,11 +1,13 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 {% load django_bootstrap5 %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Менеджер задач</title>
+    <title>{% translate "Task manager" %}</title>
 
     {% bootstrap_css %}
     {% bootstrap_javascript %}

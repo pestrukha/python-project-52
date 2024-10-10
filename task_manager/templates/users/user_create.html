@@ -1,5 +1,6 @@
 {% extends 'forms/form.html' %}
+{% load i18n %}
 
-{% block header %}Регистрация{% endblock %}
+{% block header %}{% translate 'Sign up' %}{% endblock %}
 
-{% block button_value %}Зарегистрировать{% endblock %}
+{% block button_value %}{% translate 'Register' %}{% endblock %}

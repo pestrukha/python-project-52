@@ -1,5 +1,6 @@
 {% extends 'forms/delete_form.html' %}
+{% load i18n %}
 
-{% block header %}Удаление пользователя{% endblock %}
+{% block header %}{% translate 'Delete user' %}{% endblock %}
 
 {% block object_name %}{{ object.first_name }} {{ object.last_name }}{% endblock %}

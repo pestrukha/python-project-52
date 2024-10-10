@@ -1,10 +1,11 @@
 {% extends 'layout.html' %}
+{% load i18n %}
 {% load django_bootstrap5 %}
 {% block content %}
-    <h1 class="my-4">Удаление задачи</h1>
+    <h1 class="my-4">{% translate 'Delete task' %}</h1>
     <form method="post">
         {% csrf_token %}
-        <p>Вы уверены, что хотите удалить {{ task.name }}?</p>
-        <button type="submit" class="btn btn-danger">Да, удалить</button>
+        <p>{% translate 'Are you want to delete' %} {{ task.name }}?</p>
+        <button type="submit" class="btn btn-danger">{% translate 'Yes, delete' %}</button>
     </form>
 {% endblock %}

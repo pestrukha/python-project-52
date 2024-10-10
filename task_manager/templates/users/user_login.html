@@ -1,5 +1,6 @@
 {% extends 'forms/form.html' %}
+{% load i18n %}
 
-{% block header %}Вход{% endblock %}
+{% block header %}{% translate 'Login' %}{% endblock %}
 
-{% block button_value %}Войти{% endblock %}
+{% block button_value %}{% translate 'Log in' %}{% endblock %}

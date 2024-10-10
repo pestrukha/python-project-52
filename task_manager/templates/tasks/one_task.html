@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load i18n %}
 {% load django_bootstrap5 %}
 {% block content %}
 <h1 class="my-4">Просмотр задачи</h1>
@@ -12,24 +13,24 @@
             <hr>
             <div class="container">
                 <div class="row p-1">
-                    <div class="col">Автор</div>
+                    <div class="col">{% translate 'Author' %}</div>
                     <div class="col">{{ task.author }}</div>
                 </div>
                 <div class="row p-1">
-                    <div class="col">Исполнитель</div>
+                    <div class="col">{% translate 'Executor' %}</div>
                     <div class="col">{{ task.executor }}</div>
                 </div>
                 <div class="row p-1">
-                    <div class="col">Статус</div>
+                    <div class="col">{% translate 'Status' %}</div>
                     <div class="col">{{ task.status }}</div>
                 </div>
                 <div class="row p-1">
-                    <div class="col">Дата создания</div>
+                    <div class="col">{% translate 'Creation date' %}</div>
                     <div class="col">{{ task.created_at|date:"d.m.Y H:i" }}</div>
                 </div>
                 <div class="row p-1">
                     <div class="col">
-                        <h6>Метки:</h6>
+                        <h6>{% translate 'Labels' %}:</h6>
                         <ul>
                             {% for label in task.labels.all %}
                             <li>{{ label.name }}</li>
@@ -39,9 +40,9 @@
                 </div>
                 <div class="row p-1">
                     <div class="col">
-                        <a href="{% url 'task_update' pk=task.pk %}">Изменить</a>
+                        <a href="{% url 'task_update' pk=task.pk %}">{% translate 'Change' %}</a>
                         <br>
-                        <a href="{% url 'task_delete' pk=task.pk %}">Удалить</a>
+                        <a href="{% url 'task_delete' pk=task.pk %}">{% translate 'Delete' %}</a>
                     </div>
                 </div>
             </div>
