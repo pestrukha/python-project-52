@@ -68,10 +68,8 @@ msgid "Name"
 msgstr "Имя"
 
 #: task_manager/tasks/models.py:16
-#, fuzzy
-#| msgid "Registration"
 msgid "Description"
-msgstr "Регистрация"
+msgstr "Описание"
 
 #: task_manager/tasks/models.py:19
 #: task_manager/templates/tasks/one_task.html:24
