@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.utils.translation import gettext_lazy as _
 
 
 User = get_user_model()
@@ -19,7 +20,7 @@ class TaskCreateView(AuthRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('task_list')
-    success_message = 'Задача успешно создана'
+    success_message = _('Task successfully created')
 
     def form_valid(self, form):
         user = self.request.user
@@ -45,20 +46,20 @@ class TaskUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('task_list')
-    success_message = 'Задача успешно изменена'
+    success_message = _('Task successfully changed')
 
 
 class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = 'tasks/task_delete.html'
     model = Task
     success_url = reverse_lazy('task_list')
-    success_message = 'Задача успешно удалена'
+    success_message = _('Task successfully delete')
 
     def check_task_author(self):
         if self.get_object().author != self.request.user:
             messages.error(
                 self.request,
-                'Задачу может удалить только ее автор')
+                _('The task can be deleted only by its author'))
             return False
         return True
 

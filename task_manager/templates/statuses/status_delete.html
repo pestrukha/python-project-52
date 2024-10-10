@@ -6,7 +6,7 @@
     <h2 class="my-4">{% translate 'Delete status' %}</h2>
     <form method="post">
         {% csrf_token %}
-        <p>{% translate 'Are you want to delete' %} {{ status.name }} ?</p>
+        <p>{% translate 'Are you want to delete' %} {{ status.name }}?</p>
         <button type="submit" class="btn btn-danger">{% translate 'Yes, delete' %}</button>
     </form>
 {% endblock %}

@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
 from django.shortcuts import redirect
 from task_manager.mixins import AuthRequiredMixin, DeleteProtectionMixin
+from django.utils.translation import gettext_lazy as _
 
 
 User = get_user_model()
@@ -21,7 +22,8 @@ class AuthenticationMixin(AuthRequiredMixin, UserPassesTestMixin):
             return super().handle_no_permission()
         else:
             messages.error(
-                self.request, 'У вас нет прав для изменения другого пользователя.')
+                self.request,
+                _('You have no rights to changed user.'))
             return redirect('user_list')
 
 
@@ -35,7 +37,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     template_name = 'users/user_create.html'
     form_class = NewUserCreationForm
     success_url = reverse_lazy('login')
-    success_message = 'Пользователь успешно зарегистрирован'
+    success_message = _('User successfully registered')
 
 
 class UserUpdateView(AuthenticationMixin,
@@ -45,7 +47,7 @@ class UserUpdateView(AuthenticationMixin,
     form_class = NewUserCreationForm
     template_name = 'users/user_update.html'
     success_url = reverse_lazy('user_list')
-    success_message = 'Пользователь успешно изменен'
+    success_message = _('User successfully updated')
 
 
 class UserDeleteView(AuthenticationMixin,
@@ -55,6 +57,6 @@ class UserDeleteView(AuthenticationMixin,
     model = User
     template_name = 'users/user_delete.html'
     success_url = reverse_lazy('user_list')
-    success_message = 'Пользователь успешно удален'
-    rejection_message = 'Невозможно удалить пользователя, потому что он используется'
+    success_message = _('User successfully deleted')
+    rejection_message = _('You have no rights to deleted user.')
     rejection_url = reverse_lazy('user_list')

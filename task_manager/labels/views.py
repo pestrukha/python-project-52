@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.db.models import ProtectedError
+from django.utils.translation import gettext_lazy as _
 
 
 class LabelListView(AuthRequiredMixin, ListView):
@@ -22,7 +23,7 @@ class LabelCreateView(AuthRequiredMixin,
     form_class = LabelForm
     template_name = 'labels/label_create.html'
     success_url = reverse_lazy('label_list')
-    success_message = 'Метка успешно создана'
+    success_message = _('Label successfully created')
 
 
 class LabelEditView(SuccessMessageMixin,
@@ -32,7 +33,7 @@ class LabelEditView(SuccessMessageMixin,
     form_class = LabelForm
     template_name = 'labels/label_update.html'
     success_url = reverse_lazy('label_list')
-    success_message = 'Метка успешно изменена'
+    success_message = _('Label successfully changed')
 
 
 class LabelDeleteView(AuthRequiredMixin,
@@ -40,9 +41,10 @@ class LabelDeleteView(AuthRequiredMixin,
                       DeleteView):
     model = Label
     template_name = 'labels/label_delete.html'
-    success_message = 'Метка успешно удалена'
+    success_message = _('Label successfully delete')
     success_url = reverse_lazy('label_list')
-    protected_message = 'Невозможно удалить метку, потому что она используется'
+    protected_message = _(
+        'It is not possible to delete the label, it is in use')
     protected_url = 'label_list'
 
     def post(self, request, *args, **kwargs):

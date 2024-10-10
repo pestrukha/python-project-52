@@ -7,6 +7,7 @@ from task_manager.statuses.forms import StatusForm
 from django.db.models import ProtectedError
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.utils.translation import gettext_lazy as _
 
 
 class StatusesListView(AuthRequiredMixin,
@@ -22,7 +23,7 @@ class StatusCreateView(AuthRequiredMixin,
     model = Status
     form_class = StatusForm
     template_name = 'statuses/status_create.html'
-    success_message = 'Статус успешно создан'
+    success_message = _('Status successfully created')
     success_url = reverse_lazy('status_list')
 
 
@@ -32,7 +33,7 @@ class StatusUpdateView(AuthRequiredMixin,
     model = Status
     form_class = StatusForm
     template_name = 'statuses/status_update.html'
-    success_message = 'Статус успешно изменен'
+    success_message = _('Status successfully changed')
     success_url = reverse_lazy('status_list')
 
 
@@ -41,9 +42,11 @@ class StatusDeleteView(AuthRequiredMixin,
                        DeleteView):
     model = Status
     template_name = 'statuses/status_delete.html'
-    success_message = 'Статус успешно удален'
+    success_message = _('Status successfully deleted')
     success_url = reverse_lazy('status_list')
-    protected_message = 'Невозможно удалить статус, потому что он используется'
+    protected_message = _(
+        'It is not possible to delete the status, it is in use'
+    )
     protected_url = reverse_lazy('status_list')
 
     def post(self, request, *args, **kwargs):
