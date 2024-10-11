@@ -17,3 +17,7 @@ start:
 migrate:
 	poetry run python manage.py makemigrations
 	poetry run python manage.py migrate
+
+test-coverage:
+	poetry run coverage run --source='.' manage.py test
+	poetry run coverage xml
