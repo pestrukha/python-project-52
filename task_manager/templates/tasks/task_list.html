@@ -3,15 +3,15 @@
 {% load django_bootstrap5 %}
 
 {% block content %}
-    <h1 class="my-4">Задачи</h1>
-    <a class="btn btn-primary" role="button" href="{% url 'task_create' %}">Создать задачу</a>
+    <h1 class="my-4">{% translate "Tasks" %}</h1>
+    <a class="btn btn-primary" role="button" href="{% url 'task_create' %}">{% translate "Create task" %}</a>
     <br>
     <br>
         <div class="card mb-3">
             <div class="card-body bg-light">
                 <form class="form-inline center" method="get">
                   {% bootstrap_form filter.form field_class="ml-2 mr-3" %}
-                    <button class="btn btn-primary" type="submit">Показать</button>
+                    <button class="btn btn-primary" type="submit">{% translate "Show" %}</button>
                 </form>
             </div>
         </div>

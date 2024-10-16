@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-10 20:13+0400\n"
+"POT-Creation-Date: 2024-10-17 00:55+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,6 +36,10 @@ msgstr "Метка успешно удалена"
 msgid "It is not possible to delete the label, it is in use"
 msgstr "Невозможно удалить метку, потому что она используется"
 
+#: task_manager/mixins.py:11
+msgid "You are not logged in! Please log in."
+msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
+
 #: task_manager/settings.py:140
 msgid "English"
 msgstr ""
@@ -59,6 +63,10 @@ msgstr "Статус успешно удален"
 #: task_manager/statuses/views.py:48
 msgid "It is not possible to delete the status, it is in use"
 msgstr "Невозможно удалить статус, потому что он используется"
+
+#: task_manager/tasks/filters.py:18
+msgid "Label"
+msgstr "Метка"
 
 #: task_manager/tasks/models.py:13
 #: task_manager/templates/labels/label_list.html:13
@@ -186,6 +194,7 @@ msgid "Task manager"
 msgstr "Менеджер задач"
 
 #: task_manager/templates/nav.html:9
+#: task_manager/templates/users/user_list.html:5
 msgid "Users"
 msgstr "Пользователи"
 
@@ -195,6 +204,7 @@ msgid "Statuses"
 msgstr "Статусы"
 
 #: task_manager/templates/nav.html:25
+#: task_manager/templates/tasks/task_list.html:6
 msgid "Tasks"
 msgstr "Задачи"
 
@@ -224,18 +234,27 @@ msgstr "Удалить статус"
 msgid "Change status"
 msgstr "Изменить статус"
 
+#: task_manager/templates/tasks/one_task.html:5
+msgid "Viewing a task"
+msgstr "Просмотр задачи"
+
 #: task_manager/templates/tasks/one_task.html:16
 #: task_manager/templates/tasks/task_list.html:24
 msgid "Author"
 msgstr "Автор"
 
 #: task_manager/templates/tasks/task_create.html:5
+#: task_manager/templates/tasks/task_list.html:7
 msgid "Create task"
 msgstr "Создать задачу"
 
 #: task_manager/templates/tasks/task_delete.html:5
 msgid "Delete task"
 msgstr "Удалить задачу"
+
+#: task_manager/templates/tasks/task_list.html:14
+msgid "Show"
+msgstr "Показать"
 
 #: task_manager/templates/tasks/task_list.html:26
 #: task_manager/templates/users/user_list.html:12

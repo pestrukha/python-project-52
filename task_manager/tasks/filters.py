@@ -2,6 +2,7 @@ from django import forms
 from django_filters import BooleanFilter, FilterSet, ModelChoiceFilter
 from task_manager.tasks.models import Task
 from task_manager.labels.models import Label
+from django.utils.translation import gettext_lazy as _
 
 
 class TaskFilter(FilterSet):
@@ -14,7 +15,7 @@ class TaskFilter(FilterSet):
     label = ModelChoiceFilter(
         queryset=Label.objects.all(),
         field_name='labels',
-        label='Метка',
+        label=_('Label')
     )
 
     class Meta:
